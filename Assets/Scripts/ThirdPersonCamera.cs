@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PurrNet;
 using UnityEngine;
 
 public class ThirdPersonCam : MonoBehaviour
@@ -34,6 +35,32 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Update()
     {
+        
+        if (player == null)
+        {
+            // Directly use the fallback search
+            var identities = FindObjectsOfType<NetworkIdentity>();
+            foreach (var id in identities)
+            {
+                if (id.isOwner)
+                {
+                    player = id.transform;
+                    break;
+                }
+            }
+
+            if (player != null)
+            {
+                orientation = player.Find("Orientation");
+                playerObj = player.Find("PlayerObj");
+                rb = player.GetComponent<Rigidbody>();
+                combatLookAt = player.Find("CombatLookAt") ?? orientation;
+            }
+            else
+            {
+                return;
+            }
+        }
         // switch styles
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
         if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Combat);
