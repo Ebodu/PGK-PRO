@@ -4,7 +4,7 @@ public class BallPhysics : MonoBehaviour
 {
     [Header("Odbicie")]
     public float bounciness = 0.8f;          // wspó³czynnik odbicia (1 = pe³ne, 0 = brak)
-    public float minVelocityToBounce = 0.5f; // minimalna prêdkoœæ, przy której gra dŸwiêk/efekty
+    public float minVelocityToBounce = 0.3f; // minimalna prêdkoœæ, przy której gra dŸwiêk/efekty
 
     [Header("Efekty")]
     public AudioClip bounceSound;            // dŸwiêk odbicia

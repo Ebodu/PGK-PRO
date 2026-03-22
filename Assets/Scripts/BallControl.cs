@@ -5,7 +5,7 @@ public class GolfBallController : MonoBehaviour
     [Header("Ustawienia uderzenia")]
     public float maxPower = 20f;
     public float rotationSpeed = 100f;     // szybkość obracania celownika
-    public float arrowDistance = 1.5f;
+    public float arrowDistance = 1f;
 
     [Header("Obrót piłki (opcjonalnie)")]
     public bool canRotateBall = true;
@@ -15,7 +15,12 @@ public class GolfBallController : MonoBehaviour
     public Transform arrow;  // STRZAŁKA NIE MOŻE BYĆ DZIECKIEM PIŁKI!
 
     [Header("Tłumienie")]
-    public float linearDrag = 0.5f;
+    public float linearDrag = 2f;
+    public float angularDrag = 2f;
+
+    [Header("Ładowanie")]
+    public float chargeSpeed = 20f;          // szybkość ładowania (wartość/s)
+    public float powerScaleExponent = 1.5f;  // nieliniowość skali (1 = liniowa, >1 = szybszy wzrost na początku)
 
     private Rigidbody rb;
     private float currentPower = 0f;
@@ -29,7 +34,7 @@ public class GolfBallController : MonoBehaviour
             Debug.LogError("Brak Rigidbody na piłce!");
 
         rb.linearDamping = linearDrag;
-        rb.angularDamping = 0.5f;
+        rb.angularDamping = angularDrag;
 
         if (arrow != null)
             arrow.gameObject.SetActive(true);
@@ -39,13 +44,13 @@ public class GolfBallController : MonoBehaviour
 
     void Update()
     {
-        if (isAiming)
+        if (isAiming == true)
         {
             // Celowanie za pomocą strzałek lewo/prawo
             float rotateInput = 0f;
-            if (Input.GetKey(KeyCode.E))
-                rotateInput = -1f;
             if (Input.GetKey(KeyCode.Q))
+                rotateInput = -1f;
+            if (Input.GetKey(KeyCode.E))
                 rotateInput = 1f;
 
             aimAngle += rotateInput * rotationSpeed * Time.deltaTime;
@@ -56,9 +61,11 @@ public class GolfBallController : MonoBehaviour
             {
                 arrow.position = transform.position + direction * arrowDistance;
                 arrow.rotation = Quaternion.LookRotation(direction);
-                // Skala w zależności od mocy
-                float scale = 0.3f + (currentPower / maxPower) * 0.5f;
-                arrow.localScale = new Vector3(0.3f, 0.3f, scale);
+
+                float t = currentPower / maxPower;              // 0..1
+                float scaledT = Mathf.Pow(t, powerScaleExponent); // nieliniowe
+                float scale = 0.2f + scaledT * 0.3f;            // od 0.2 do 0.5
+                arrow.localScale = new Vector3(0.2f, 0.2f, scale);
             }
 
             // Obrót piłki (Q/E/R/F) – niezależnie od sterowania graczem
@@ -77,7 +84,7 @@ public class GolfBallController : MonoBehaviour
             // Ładowanie mocy – lewy przycisk myszy
             if (Input.GetMouseButton(0))
             {
-                currentPower += Time.deltaTime * 10f;
+                currentPower += Time.deltaTime * chargeSpeed;
                 currentPower = Mathf.Clamp(currentPower, 0, maxPower);
             }
 
@@ -86,11 +93,25 @@ public class GolfBallController : MonoBehaviour
             {
                 HitBall(direction);
             }
+            if (rb.linearVelocity.magnitude > 0.05f && rb.angularVelocity.magnitude > 0.05f)
+            {
+                isAiming = false;
+                if (arrow != null)
+                    arrow.gameObject.SetActive(false);
+            }
         }
         else
         {
+            if (rb.linearVelocity.magnitude < 0.5f)
+            {
+                rb.linearDamping = 3.5f;   // duży opór, by szybciej zatrzymać
+            }
+            else
+            {
+                rb.linearDamping = linearDrag; // normalny opór
+            }
             // Czekanie aż piłka się zatrzyma
-            if (rb.linearVelocity.magnitude < 0.1f && rb.angularVelocity.magnitude < 0.1f)
+            if (rb.linearVelocity.magnitude < 0.05f && rb.angularVelocity.magnitude < 0.05f)
             {
                 EnableAiming();
             }
@@ -99,18 +120,21 @@ public class GolfBallController : MonoBehaviour
 
     void HitBall(Vector3 direction)
     {
+        rb.linearDamping = linearDrag;
+        rb.angularDamping = angularDrag; // lub ta sama zmienna, jeśli zrobisz publiczną
+
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.AddForce(direction * currentPower, ForceMode.Impulse);
 
         currentPower = 0f;
-        isAiming = false;
-        if (arrow != null)
-            arrow.gameObject.SetActive(false);
     }
 
     public void EnableAiming()
     {
+        rb.linearDamping = linearDrag;
+        rb.angularDamping = angularDrag;
+
         isAiming = true;
         if (arrow != null)
             arrow.gameObject.SetActive(true);
