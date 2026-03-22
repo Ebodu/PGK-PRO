@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 31501407453152713}
   - component: {fileID: 5296411464058817565}
-  - component: {fileID: 4956910932206468263}
+  - component: {fileID: 98750362535428274}
+  - component: {fileID: 9119897762156444007}
+  - component: {fileID: 4460588305494894169}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -61,7 +63,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4956910932206468263
+--- !u!114 &98750362535428274
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,16 +72,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 1172074884421275034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b0a8c793bbd6f4681e9025618308a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ab9d42b0dce0614c9e126bf995becfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallPhysics
+  bounciness: 0.8
+  minVelocityToBounce: 0.5
+  bounceSound: {fileID: 0}
+  bounceParticles: {fileID: 0}
+--- !u!114 &9119897762156444007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172074884421275034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988d802f2bf2f524d8dc19f98906daf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerProximity
+  playerTag: Player
+  activationDistance: 2
+  requireProximity: 1
+--- !u!114 &4460588305494894169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172074884421275034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f86722eaa187c499d2d6193557d1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GolfBallController
-  maxPower: 40
+  maxPower: 60
   rotationSpeed: 100
   arrowDistance: 1.5
-  canRotateBall: 1
-  ballRotationSpeed: 50
   arrow: {fileID: 0}
+  rangeIndicator: {fileID: 0}
   linearDrag: 0.5
+  angularDrag: 2
+  brakeDrag: 5
+  brakeThreshold: 0.5
+  stopThreshold: 0.05
+  chargeSpeed: 20
+  powerScaleExponent: 1.5
+  requirePlayerNearby: 1
 --- !u!1 &3294316412958841437
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +130,6 @@ GameObject:
   - component: {fileID: 4835185187818116111}
   - component: {fileID: 7250765620986998358}
   - component: {fileID: 1709153407224700515}
-  - component: {fileID: 8315280116439836369}
   m_Layer: 0
   m_Name: BallObj
   m_TagString: Untagged
@@ -171,24 +209,3 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8315280116439836369
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3294316412958841437}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
