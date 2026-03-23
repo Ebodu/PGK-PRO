@@ -103,5 +103,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d954c183eebe48541b156f33c90c2e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowBall
-  ball: {fileID: 0}
+  ball: {fileID: 31501407453152713, guid: a7bb4a5ee429e0246ae9138a19cfa9b5, type: 3}
   yOffset: -0.143

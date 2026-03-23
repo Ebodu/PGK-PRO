@@ -8,7 +8,7 @@ public class PlayerProximity : MonoBehaviour
     public bool requireProximity = true;
 
     private GolfBallController ballController;
-    private Transform player;
+    private Transform player; // teraz bÄ™dzie ustawiany z zewnÄ…trz
 
     void Start()
     {
@@ -16,11 +16,18 @@ public class PlayerProximity : MonoBehaviour
         if (ballController == null)
         {
             Debug.LogError("PlayerProximity wymaga GolfBallController na tym samym obiekcie!");
-            enabled = false; // wy³¹cz skrypt, bo nie ma sensu dzia³aæ
+            enabled = false;
             return;
         }
 
-        FindPlayer();
+        // JeÅ›li player nie zostaÅ‚ ustawiony przez SetPlayerTransform, sprÃ³buj znaleÅºÄ‡ po tagu
+        if (player == null)
+            FindPlayer();
+    }
+
+    public void SetPlayerTransform(Transform playerTransform)
+    {
+        player = playerTransform;
     }
 
     void FindPlayer()
@@ -34,26 +41,22 @@ public class PlayerProximity : MonoBehaviour
 
     void Update()
     {
-        // Jeœli nie wymagamy bliskoœci, zawsze zezwalaj
         if (!requireProximity)
         {
             ballController.SetPlayerNearby(true);
             return;
         }
 
-        // Jeœli gracza nie ma, próbuj znaleŸæ (mo¿e zosta³ stworzony póŸniej)
         if (player == null)
         {
             FindPlayer();
             if (player == null)
             {
-                // Nadal brak gracza – nie blokuj, ale i nie zezwalaj? Mo¿esz ustawiæ false.
                 ballController.SetPlayerNearby(false);
                 return;
             }
         }
 
-        // SprawdŸ odleg³oœæ
         float distance = Vector3.Distance(transform.position, player.position);
         bool isNear = distance <= activationDistance;
         ballController.SetPlayerNearby(isNear);

@@ -261,6 +261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalCameraSpawner
   cameraPrefab: {fileID: 5231125929996851981, guid: fda399d3596319a4296ad7a558966885, type: 3}
+  ballPrefab: {fileID: 1172074884421275034, guid: a7bb4a5ee429e0246ae9138a19cfa9b5, type: 3}
+  arrowPrefab: {fileID: 6492885365498239540, guid: 237c8b122cee1aa499c6d3656477916c, type: 3}
+  discPrefab: {fileID: 3326661343428659758, guid: b55a7204952facf4381d0c507e83b236, type: 3}
 --- !u!1 &7596185906633379870
 GameObject:
   m_ObjectHideFlags: 0

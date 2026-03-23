@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using PurrNet;
 using UnityEngine;
 using TMPro;
 
-public class PlayerMovementAdvanced : NetworkIdentity
+public class PlayerMovementAdvanced : MonoBehaviour
 {
     [Header("Movement")]
     private float moveSpeed;
