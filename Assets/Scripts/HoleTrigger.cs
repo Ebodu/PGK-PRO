@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
+using PurrNet;
+using System.Collections;
 
-public class HoleTrigger : MonoBehaviour
+public class HoleTrigger : NetworkBehaviour
 {
-    [Header("Ustawienia dołka")]
     [SerializeField] private string ballTag = "Ball";
     [SerializeField] private float sinkDelay = 0.5f;
-    [SerializeField] private bool disableBallOnHole = true;
-
-    [Header("Opcjonalne efekty")]
+    [SerializeField] private bool destroyBall = false;
     [SerializeField] private ParticleSystem holeEffect;
     [SerializeField] private AudioClip holeSound;
 
     private AudioSource audioSource;
     private bool isUsed = false;
+    private float blockUntilTime = 0f; // nowe
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null && holeSound != null)
@@ -23,68 +23,41 @@ public class HoleTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (Time.time < blockUntilTime) return; // blokada czasowa
         if (isUsed) return;
         if (!other.CompareTag(ballTag)) return;
 
-        GolfBallController ballController = other.GetComponent<GolfBallController>();
-        if (ballController == null) return;
+        Debug.Log("🏆 Piłka wpadła do dołka!");
 
-        // ✅ Zapobiega wielokrotnemu wejściu (np. gdy piłka się trzęsie w dołku)
-        if (isUsed) return;
+        GolfBallController ball = other.GetComponent<GolfBallController>();
+        if (ball == null) return;
+
         isUsed = true;
+        blockUntilTime = Time.time + 0.5f; // blokuj na 0.5s
 
-        OnBallEnteredHole(ballController);
-    }
+        ball.DisableMovement();
 
-    private void OnBallEnteredHole(GolfBallController ball)
-    {
-        Debug.Log($"⛳ Piłka wpadła do dołka! {ball.name}");
-
-        // 1. Efekt dźwiękowy
         if (holeSound != null && audioSource != null)
             audioSource.PlayOneShot(holeSound);
-
-        // 2. Efekt cząsteczek
         if (holeEffect != null)
             Instantiate(holeEffect, transform.position, Quaternion.identity);
 
-        // 3. Zatrzymanie piłki i uniemożliwienie dalszych uderzeń
-        Rigidbody rb = ball.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = true;  // ✅ To całkowicie wyłącza fizykę
-        }
-
-        // 4. Wyłączenie skryptu sterowania (żeby Update nie próbował nic robić)
-        ball.enabled = false;
-
-        // 5. Schowanie wizualnych wskaźników
-        if (ball.arrow != null)
-            ball.arrow.gameObject.SetActive(false);
-        if (ball.rangeIndicator != null)
-            ball.rangeIndicator.SetActive(false);
-
-        // 6. Opcjonalne wyłączenie/zniszczenie piłki po czasie
-        if (disableBallOnHole)
+        if (destroyBall)
             Destroy(ball.gameObject, sinkDelay);
-
-        // 7. 📍 TU DODAJ SWOJĄ LOGIKĘ PUNKTÓW / NAPĘDNEGO DOŁKA
-        // ScoreManager.Instance?.AddScore(1);
-        // Debug.Log("🏆 +1 punkt! Przejdź do następnego dołka.");
     }
 
-    // Resetowanie dołka (przydatne przy powtórce poziomu)
-    public void ResetHole()
+    private void OnTriggerExit(Collider other)
     {
+        if (!other.CompareTag(ballTag)) return;
+        // Nie resetuj od razu - pozwól, by czas blokady zapobiegł ponownemu wejściu
+        // Opcjonalnie: resetuj po czasie
+        StartCoroutine(ResetHoleAfterDelay(0.3f));
+    }
+
+    private IEnumerator ResetHoleAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         isUsed = false;
-    }
-
-    // Wizualizacja w edytorze
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, 0.4f);
+        Debug.Log("Dołek gotowy na następną piłkę.");
     }
 }

@@ -914,11 +914,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1122598196400914428, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -61.37
+      value: -61.452
       objectReference: {fileID: 0}
     - target: {fileID: 1122598196400914428, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.442
+      value: 7.038
       objectReference: {fileID: 0}
     - target: {fileID: 1122598196400914428, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
       propertyPath: m_LocalPosition.z
@@ -960,8 +960,66 @@ PrefabInstance:
     - {fileID: 1455752786365229406, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8748685361355650620, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8873464213243179130}
+    - targetCorrespondingSourceObject: {fileID: 8748685361355650620, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7022213437785594471}
   m_SourcePrefab: {fileID: 100100000, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
+--- !u!1 &1507907761808235274 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8748685361355650620, guid: f08860b4a75a3a1438c92746d1164341, type: 3}
+  m_PrefabInstance: {fileID: 7891635741013388598}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8873464213243179130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507907761808235274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40516e16a5ca4be0a4427eccc52e744f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoleTrigger
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  ballTag: Ball
+  sinkDelay: 0.5
+  destroyBall: 0
+  holeEffect: {fileID: 0}
+  holeSound: {fileID: 0}
+--- !u!135 &7022213437785594471
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507907761808235274}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &7066427064153887434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1122598196400914428, guid: f08860b4a75a3a1438c92746d1164341, type: 3}

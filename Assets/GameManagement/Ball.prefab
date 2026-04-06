@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -1924990524356932189}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   rotationSpeed: 100
   arrowDistance: 1.5
   arrow: {fileID: 0}
-  rangeIndicator: {fileID: 3326661343428659758, guid: b55a7204952facf4381d0c507e83b236, type: 3}
+  rangeIndicator: {fileID: 0}
   linearDrag: 0.5
   angularDrag: 2
   brakeDrag: 5
@@ -142,6 +142,7 @@ MonoBehaviour:
   chargeSpeed: 20
   powerScaleExponent: 1.5
   requirePlayerNearby: 1
+  ownerId: 0
 --- !u!114 &-1924990524356932189
 MonoBehaviour:
   m_ObjectHideFlags: 0
