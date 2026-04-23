@@ -26,3 +26,7 @@ MonoBehaviour:
     prefab: {fileID: 1172074884421275034, guid: a7bb4a5ee429e0246ae9138a19cfa9b5, type: 3}
     pooled: 0
     warmupCount: 5
+  - guid: fbc2a3ba999d3f44c8820fcae344e135
+    prefab: {fileID: 3288855662392242829, guid: fbc2a3ba999d3f44c8820fcae344e135, type: 3}
+    pooled: 0
+    warmupCount: 5

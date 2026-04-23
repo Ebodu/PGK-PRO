@@ -46,7 +46,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172074884421275034}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 1.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f86722eaa187c499d2d6193557d1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GolfBallController
-  maxPower: 60
+  maxPower: 100
   rotationSpeed: 100
   arrowDistance: 1.5
   arrow: {fileID: 0}
