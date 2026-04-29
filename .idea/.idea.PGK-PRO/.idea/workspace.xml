@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7f57958a-6bb0-4264-86cd-e617ffd4f93f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Levels/TrackLvL1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Levels/TrackLvL1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleSceneDup.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleSceneDup.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallControl(Old).cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallControl(Old).cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BallControl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HoleTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HoleTrigger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/ProxyRange.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/ProxyRange.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ProxyRangeMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ProxyRangeMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +114,7 @@
       <workItem from="1775472995232" duration="18000" />
       <workItem from="1775473047277" duration="4000" />
       <workItem from="1775473087290" duration="4378000" />
+      <workItem from="1776941084756" duration="41000" />
     </task>
     <servers />
   </component>

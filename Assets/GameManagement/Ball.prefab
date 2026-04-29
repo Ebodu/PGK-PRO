@@ -139,7 +139,7 @@ MonoBehaviour:
   brakeDrag: 5
   brakeThreshold: 0.5
   stopThreshold: 0.05
-  chargeSpeed: 20
+  chargeSpeed: 30
   powerScaleExponent: 1.5
   requirePlayerNearby: 1
   ownerId: 0
