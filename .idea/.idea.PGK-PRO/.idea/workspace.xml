@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f57958a-6bb0-4264-86cd-e617ffd4f93f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovementV2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/ProxyRange.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/ProxyRange.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ProxyRangeMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ProxyRangeMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/CamHolder.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/CamHolder.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,11 +26,14 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/HoleTrigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/LocalCamera.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerMovementV2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@631385387c5a/Runtime/Behaviours/CinemachineFreeLook.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@631385387c5a/Runtime/Helpers/CinemachineInputProvider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.multiplayer.center.quickstart@c025a98340af/Runtime/NetcodeForGameObjectsExample/DistributedAuthority/Spawner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@37e0d4fc2503/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/dev.purrnet.purrnet@f4dd26fb792b/Runtime/Components/NetworkBehaviour/PlayerSpawner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/dev.purrnet.purrnet@f4dd26fb792b/Runtime/Components/NetworkIdentity/NetworkIdentity.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/dev.purrnet.purrnet@f4dd26fb792b/Runtime/Managers/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -115,6 +122,9 @@
       <workItem from="1775473047277" duration="4000" />
       <workItem from="1775473087290" duration="4378000" />
       <workItem from="1776941084756" duration="41000" />
+      <workItem from="1777891379084" duration="15000" />
+      <workItem from="1777891404482" duration="2530000" />
+      <workItem from="1777913344807" duration="2123000" />
     </task>
     <servers />
   </component>

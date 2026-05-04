@@ -2357,7 +2357,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerObj: {fileID: 0}
   rb: {fileID: 0}
-  rotationSpeed: 1
+  rotationSpeed: 7
   combatLookAt: {fileID: 0}
   thirdPersonCam: {fileID: 1135510436257878591}
   combatCam: {fileID: 715785605928031302}
