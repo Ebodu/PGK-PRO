@@ -11,7 +11,7 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
 
     [Header("Drag")]
     public float groundDrag = 5f;
-    public float slideDrag = 0f;                 // 0 = brak tarcia podczas ślizgu
+    public float slideDrag = 0f;
 
     [Header("Jumping")]
     public float jumpForce = 10f;
@@ -25,7 +25,7 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
     [Header("Crouching & Sliding")]
     public float crouchYScale = 0.5f;
     public float slideMaxDuration = 1f;
-    public float slideMinSpeed = 0.5f;           // bardzo niski próg – ślizg kończy się dopiero przy minimalnej prędkości
+    public float slideMinSpeed = 0.5f;
 
     private float startYScale;
     private bool isSliding;
@@ -63,10 +63,19 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
         sprinting,
         crouching,
         sliding,
-        air
+        air,
+        freeze,
+        grappling
     }
 
+    // ── Grappling support ──────────────────────────────────────────
+    [HideInInspector] public bool freeze = false;
+    [HideInInspector] public bool activeGrapple = false;
+
     private Vector3 launchDirection;
+
+    // ── Velocity tracking (used by JumpToPosition) ─────────────────
+    private bool enableMovementOnNextTouch = false;
 
     private void Start()
     {
@@ -89,7 +98,15 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        // Tarcie
+        // Drag
+        if (freeze)
+        {
+            rb.linearDamping = 0f;
+            return;
+        }
+
+        if (activeGrapple) return;
+
         if (grounded && !isSliding)
             rb.linearDamping = groundDrag;
         else if (isSliding)
@@ -97,7 +114,6 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
         else
             rb.linearDamping = 0f;
 
-        // Skalowanie postaci (kucanie) – działa również w powietrzu
         UpdateCrouchScale();
     }
 
@@ -119,10 +135,11 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
 
     private void MyInput()
     {
+        if (freeze || activeGrapple) return;
+
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // Skok (tylko gdy nie ślizgamy się)
         if (Input.GetKey(jumpKey) && readyToJump && grounded && !isSliding)
         {
             readyToJump = false;
@@ -130,31 +147,20 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        // --- Wślizg / kucanie ---
-        // Rozpoczęcie ślizgu na ziemi (sprint + kucnięcie)
         if (crouchHeld && grounded && state == MovementState.sprinting && !isSliding)
-        {
             StartSlide();
-        }
 
-        // Kucanie w powietrzu – zapamiętaj zamiar ślizgu po lądowaniu
         if (!grounded && crouchHeld && state == MovementState.sprinting)
-        {
             slideOnLanding = true;
-        }
 
-        // Po wylądowaniu z wciśniętym kucaniem – rozpocznij ślizg
         if (grounded && slideOnLanding && !isSliding)
         {
             StartSlide();
             slideOnLanding = false;
         }
 
-        // Zakończenie ślizgu po puszczeniu klawisza kucania
         if (!crouchHeld && isSliding)
-        {
             EndSlide();
-        }
     }
 
     private void StartSlide()
@@ -179,17 +185,28 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
 
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         if (flatVel.magnitude < slideMinSpeed || slideTimer <= 0f)
-        {
             EndSlide();
-        }
     }
 
     private void StateHandler()
     {
+        if (freeze)
+        {
+            state = MovementState.freeze;
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
+
+        if (activeGrapple)
+        {
+            state = MovementState.grappling;
+            return;
+        }
+
         if (isSliding)
         {
             state = MovementState.sliding;
-            moveSpeed = sprintSpeed;   // zachowujemy prędkość sprintu dla ewentualnych obliczeń
+            moveSpeed = sprintSpeed;
             return;
         }
 
@@ -216,6 +233,8 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (freeze || activeGrapple) return;
+
         if (!isSliding)
         {
             moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -234,9 +253,8 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
             {
                 Vector3 forceDir = moveDirection.normalized;
                 if (airControlMaxAngle > 0f && launchDirection != Vector3.zero)
-                {
                     forceDir = Vector3.RotateTowards(launchDirection, forceDir, Mathf.Deg2Rad * airControlMaxAngle, 0f);
-                }
+
                 rb.AddForce(forceDir * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             }
 
@@ -244,9 +262,7 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
         }
         else
         {
-            // Podczas ślizgu NIE dodajemy siły napędowej – jedynie delikatna korekta kierunku
             Vector3 inputDir = (orientation.forward * verticalInput + orientation.right * horizontalInput).normalized;
-            // Mała siła sterująca, aby móc lekko skręcać podczas ślizgu
             rb.AddForce(inputDir * moveSpeed * 5f, ForceMode.Force);
             rb.useGravity = true;
         }
@@ -254,10 +270,9 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
 
     private void SpeedControl()
     {
-        // Podczas ślizgu nie ograniczamy prędkości (chcemy zachować impet)
+        if (activeGrapple) return;
         if (isSliding) return;
 
-        // Standardowe ograniczenie prędkości
         if (OnSlope() && !exitingSlope)
         {
             if (rb.linearVelocity.magnitude > moveSpeed)
@@ -291,6 +306,70 @@ public class PlayerMovementAdvancedV2 : MonoBehaviour
     {
         readyToJump = true;
         exitingSlope = false;
+    }
+
+    // ── Grappling: skok w kierunku punktu ─────────────────────────────────────
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        activeGrapple = true;
+
+        // Oblicz wektor prędkości potrzebny, by wylądować w targetPosition
+        // na podstawie fizyki (kinematyka w osi Y)
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+
+        // Zastosujemy prędkość w następnej klatce, by uniknąć konfliktów z fizyką
+        Invoke(nameof(SetVelocity), 0.1f);
+
+        // Wyłącz grappling po dotarciu (safeguard)
+        Invoke(nameof(ResetRestrictions), 3f);
+    }
+
+    private Vector3 velocityToSet;
+
+    private void SetVelocity()
+    {
+        enableMovementOnNextTouch = true;
+        rb.linearVelocity = velocityToSet;
+    }
+
+    private void ResetRestrictions()
+    {
+        activeGrapple = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (enableMovementOnNextTouch)
+        {
+            enableMovementOnNextTouch = false;
+            ResetRestrictions();
+
+            // Anuluj opóźnione wywołania resetowania
+            GetComponent<Grappling>()?.StopGrapple();
+        }
+    }
+
+    // Kinematyka balistyczna – oblicza v0 potrzebne by osiągnąć cel z danym szczytem toru
+    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+
+        // Czas do szczytu i czas do ziemi
+        float timeToTop = Mathf.Sqrt(-2f * trajectoryHeight / gravity);
+        float timeToGround = Mathf.Sqrt(2f * (displacementY - trajectoryHeight) / gravity);
+
+        // Ujemny czas oznaczałby problem – ochrona
+        if (float.IsNaN(timeToTop) || float.IsNaN(timeToGround))
+            return (endPoint - startPoint).normalized * 10f;
+
+        float totalTime = timeToTop + Mathf.Abs(timeToGround);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2f * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / totalTime;
+
+        return velocityXZ + velocityY;
     }
 
     private bool OnSlope()
