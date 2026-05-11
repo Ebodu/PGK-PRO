@@ -5,26 +5,26 @@ using PurrNet;
 public class GameMenu : MonoBehaviour
 {
     [SerializeField] private string gameSceneName;
-    [SerializeField] private bool startAsHost = true;
     
     private NetworkManager networkManager;
 
     void Start()
     {
+        // Znajdź TYLKO PurrNet NetworkManager
         networkManager = FindObjectOfType<NetworkManager>();
         
         if (networkManager == null)
         {
-            Debug.LogError("Nie znaleziono NetworkManager! Dodaj go do sceny MainMenu.");
+            Debug.LogError("Nie znaleziono PurrNet NetworkManager!");
             return;
         }
 
-        // Automatycznie uruchom jako host
-        if (startAsHost)
+        // Uruchom jako host (serwer + klient)
+        if (!networkManager.isServer && !networkManager.isClient)
         {
             networkManager.StartServer();
             networkManager.StartClient();
-            Debug.Log("Uruchomiono jako Host (Serwer + Klient)");
+            Debug.Log("PurrNet Host uruchomiony");
         }
     }
 
@@ -36,10 +36,9 @@ public class GameMenu : MonoBehaviour
             return;
         }
 
-        // Jeśli nie jesteś serwerem, nie możesz ładować scen
         if (!networkManager.isServer)
         {
-            Debug.LogError("Tylko serwer może ładować sceny! Uruchom jako host.");
+            Debug.LogError("Nie jesteś serwerem!");
             return;
         }
 
@@ -49,17 +48,13 @@ public class GameMenu : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Serwer ładuje scenę: {gameSceneName}");
-        
-        // Proste ładowanie sceny
+        Debug.Log($"Ładuję scenę: {gameSceneName}");
         await networkManager.sceneModule.LoadSceneAsync(gameSceneName, LoadSceneMode.Single);
-        
         Debug.Log("Scena załadowana!");
     }
 
     public void Quit()
     {
-        // Zatrzymaj połączenia przed wyjściem
         if (networkManager != null)
         {
             if (networkManager.isClient)
@@ -68,6 +63,10 @@ public class GameMenu : MonoBehaviour
                 networkManager.StopServer();
         }
         
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 }
