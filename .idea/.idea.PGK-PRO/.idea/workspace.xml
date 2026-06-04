@@ -7,56 +7,15 @@
     <list default="true" id="7f57958a-6bb0-4264-86cd-e617ffd4f93f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BackGround.JPEG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BackGround.JPEG.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Arrow.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Arrow.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 2.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 2.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 3.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 3.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 4.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 4.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 5.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain 5.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Levels/Piaskownica.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Levels/Piaskownica.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NetworkPrefabs.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NetworkPrefabs.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/GameMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/GameMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_0a8c286f-6970-4c8c-b24e-17749e524f66.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_0a8c286f-6970-4c8c-b24e-17749e524f66.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_0fdb42a4-ab2b-47c5-a061-54d33497af84.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_0fdb42a4-ab2b-47c5-a061-54d33497af84.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_14752682-daf3-4903-91cf-5f0b81b9fd32.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_14752682-daf3-4903-91cf-5f0b81b9fd32.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_3a1e9d82-45ea-40eb-b2a0-c881e938bfbf.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_3a1e9d82-45ea-40eb-b2a0-c881e938bfbf.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_3a659248-0aae-4350-b1a5-e176dca9e929.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_3a659248-0aae-4350-b1a5-e176dca9e929.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_5babaa81-3f82-4e45-82f5-17f01afa8b11.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_5babaa81-3f82-4e45-82f5-17f01afa8b11.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_697d1b98-436d-4c83-a53b-4763c4764ef3.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_697d1b98-436d-4c83-a53b-4763c4764ef3.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_6c36eaeb-d3ed-48a7-b68e-aae1756eda1c.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_6c36eaeb-d3ed-48a7-b68e-aae1756eda1c.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_73ba0ecf-a64f-4627-90f9-2e060c85ba29.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_73ba0ecf-a64f-4627-90f9-2e060c85ba29.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_876b6fc1-7f48-4859-8ec8-fbb6e1f84b0b.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_876b6fc1-7f48-4859-8ec8-fbb6e1f84b0b.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_93751794-42a1-46d5-8f07-341096c8577f.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_93751794-42a1-46d5-8f07-341096c8577f.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_d1a49772-f187-4dde-ba5b-bc870a6c48f2.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_d1a49772-f187-4dde-ba5b-bc870a6c48f2.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_f458669e-1c9d-4c0f-9edb-1deae5038b44.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TerrainData_f458669e-1c9d-4c0f-9edb-1deae5038b44.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BallControl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HoleTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HoleTrigger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Win.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Win.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +141,8 @@
       <workItem from="1777969077091" duration="4546000" />
       <workItem from="1777988401399" duration="1730000" />
       <workItem from="1778256063651" duration="3598000" />
+      <workItem from="1780565323765" duration="731000" />
+      <workItem from="1780566101673" duration="2306000" />
     </task>
     <servers />
   </component>
