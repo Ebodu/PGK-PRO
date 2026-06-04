@@ -6,12 +6,13 @@ public class HoleTrigger : NetworkBehaviour
 {
     [SerializeField] private string ballTag = "Ball";
     [SerializeField] private float sinkDelay = 0.5f;
+    [SerializeField] private bool destroyBall = false;
     [SerializeField] private ParticleSystem holeEffect;
     [SerializeField] private AudioClip holeSound;
 
-    // SyncVar zamiast NetworkVariable – PurrNet tak to robi
-    private readonly SyncVar<bool> isOccupied = new(false);
     private AudioSource audioSource;
+    private bool isUsed = false;
+    private float blockUntilTime = 0f; // nowe
 
     private void Start()
     {
@@ -21,58 +22,43 @@ public class HoleTrigger : NetworkBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log($"[KLIENT] OnTriggerEnter wykrył: {other.name}, IsServer: {isServer}");
-        if (!other.CompareTag(ballTag)) return;
-        
-        // Wywołanie metody po stronie serwera
-        ServerHandleBallEnter(other.gameObject);
-    }
 
-    [ServerRpc]
-    private void ServerHandleBallEnter(GameObject ballObject)
     {
-        if (isOccupied.value) return;  // .value zamiast .Value
-        
-        var ball = ballObject.GetComponent<GolfBallController>();
+        if (Time.time < blockUntilTime) return; // blokada czasowa
+        if (isUsed) return;
+        if (!other.CompareTag(ballTag)) return;
+
+        Debug.Log("🏆 Piłka wpadła do dołka!");
+
+        GolfBallController ball = other.GetComponent<GolfBallController>();
         if (ball == null) return;
 
-        Debug.Log("[SERVER] Piłka wpadła do dołka!");
-        
-        isOccupied.value = true;
-        
-        // Efekty widoczne dla wszystkich graczy
-        RpcPlayHoleEffects(transform.position);
-        
-        // Zatrzymanie piłki przez serwer
-        ball.ServerOnEnterHole();
-        
-        StartCoroutine(ServerResetHoleAfterDelay(ballObject, sinkDelay));
-    }
+        isUsed = true;
+        blockUntilTime = Time.time + 0.5f; // blokuj na 0.5s
 
-    [ObserversRpc]
-    private void RpcPlayHoleEffects(Vector3 position)
-    {
+        ball.DisableMovement();
+
         if (holeSound != null && audioSource != null)
             audioSource.PlayOneShot(holeSound);
         if (holeEffect != null)
-            Instantiate(holeEffect, position, Quaternion.identity);
+            Instantiate(holeEffect, transform.position, Quaternion.identity);
+
+        if (destroyBall)
+            Destroy(ball.gameObject, sinkDelay);
     }
 
-    [ServerRpc]
-    private IEnumerator ServerResetHoleAfterDelay(GameObject ballObject, float delay)
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag(ballTag)) return;
+        // Nie resetuj od razu - pozwól, by czas blokady zapobiegł ponownemu wejściu
+        // Opcjonalnie: resetuj po czasie
+        StartCoroutine(ResetHoleAfterDelay(0.3f));
+    }
+
+    private IEnumerator ResetHoleAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        
-        if (ballObject != null)
-        {
-            // Prawidłowe usunięcie piłki z sieci
-            var netId = ballObject.GetComponent<NetworkBehaviour>();
-            if (netId != null) netId.Despawn();
-        }
-        
-        yield return new WaitForSeconds(0.5f);
-        isOccupied.value = false;
-        Debug.Log("[SERVER] Dołek ponownie dostępny.");
+        isUsed = false;
+        Debug.Log("Dołek gotowy na następną piłkę.");
     }
 }

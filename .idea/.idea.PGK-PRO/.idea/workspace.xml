@@ -7,15 +7,8 @@
     <list default="true" id="7f57958a-6bb0-4264-86cd-e617ffd4f93f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Ball.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Levels/Piaskownica.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Levels/Piaskownica.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NetworkPrefabs.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NetworkPrefabs.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ScenaSpaw.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/BallControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BallControl.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/HoleTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HoleTrigger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Win.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Win.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +135,7 @@
       <workItem from="1777988401399" duration="1730000" />
       <workItem from="1778256063651" duration="3598000" />
       <workItem from="1780565323765" duration="731000" />
-      <workItem from="1780566101673" duration="2306000" />
+      <workItem from="1780566101673" duration="5695000" />
     </task>
     <servers />
   </component>
