@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="BackendCodeEditorMiscSettings">
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
@@ -10,23 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="124d71d4-06dd-4550-9b81-f94f7f4a2769" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Grappling.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Grappling.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/New Material.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/New Material.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.My project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.My project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PGK-PRO/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Arrow2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Arrow2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/CamHolder.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/CamHolder.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameManagement/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameManagement/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NetworkPrefabs.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NetworkPrefabs.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleSceneDup.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleSceneDup.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TestMap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TestMap.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovementV2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovementV2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,16 +26,12 @@
     &quot;assignee&quot;: &quot;Jerz32&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ebodu/PGK-PRO.git",
-    "accountId": "b03ac45c-729e-4af0-a19a-2f4fad69583b"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ebodu/PGK-PRO.git&quot;,
+    &quot;accountId&quot;: &quot;16ae89d9-1e4c-4f8a-b5c6-64df65ebb0f7&quot;
   }
-}]]></component>
-  <component name="McpProjectServerCommands">
-    <commands />
-    <urls />
-  </component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -66,16 +43,13 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -90,8 +64,7 @@
       <updated>1777919664923</updated>
       <workItem from="1777919669937" duration="28000" />
       <workItem from="1778055026137" duration="210000" />
-      <workItem from="1778494306202" duration="2000" />
-      <workItem from="1778494366370" duration="2000" />
+      <workItem from="1779273615063" duration="87000" />
     </task>
     <servers />
   </component>

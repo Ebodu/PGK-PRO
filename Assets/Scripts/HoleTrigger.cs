@@ -22,6 +22,7 @@ public class HoleTrigger : NetworkBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
+
     {
         if (Time.time < blockUntilTime) return; // blokada czasowa
         if (isUsed) return;
