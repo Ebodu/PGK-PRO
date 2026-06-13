@@ -155,7 +155,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1849169935857357885}
   - component: {fileID: 7953663461716108284}
-  - component: {fileID: 7456021918525702464}
   - component: {fileID: 3693878747188380015}
   - component: {fileID: 4232419282770362495}
   - component: {fileID: 3301321571115423402}
@@ -213,36 +212,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!114 &7456021918525702464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6141776845361195637}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 667cb1c06e7bd9d4bba91b024e3bfb08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementAdvanced
-  walkSpeed: 7
-  sprintSpeed: 14
-  groundDrag: 5
-  jumpForce: 12
-  jumpCooldown: 0.25
-  airMultiplier: 0
-  crouchSpeed: 3.5
-  crouchYScale: 1
-  jumpKey: 32
-  sprintKey: 304
-  crouchKey: 306
-  playerHeight: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  maxSlopeAngle: 20
-  orientation: {fileID: 1464399367110576363}
-  state: 0
 --- !u!114 &3693878747188380015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +276,7 @@ MonoBehaviour:
   crouchSpeed: 3
   groundDrag: 5
   slideDrag: 0
-  jumpForce: 10
+  jumpForce: 20
   jumpCooldown: 0.25
   airMultiplier: 0.4
   airControlMaxAngle: 0

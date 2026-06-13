@@ -3963,7 +3963,7 @@ GameObject:
   - component: {fileID: 921377850}
   - component: {fileID: 921377849}
   - component: {fileID: 921377848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StartCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
