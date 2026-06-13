@@ -72,57 +72,54 @@ public class LocalSpawner : MonoBehaviour
     }
 
     private void SpawnBall()
-{
-    if (ballPrefab == null)
     {
-        Debug.LogWarning("Brak przypisanego ballPrefab w LocalCameraSpawner!");
-        return;
-    }
-
-    Vector3 spawnPos = transform.position + new Vector3(0, 0.5f, 1f);
-    GameObject ball = Instantiate(ballPrefab, spawnPos, Quaternion.identity);
-
-    // Skonfiguruj PlayerProximity
-    PlayerProximity proximity = ball.GetComponent<PlayerProximity>();
-    if (proximity != null)
-        proximity.SetPlayerTransform(transform);
-
-    // Skonfiguruj GolfBallController
-    GolfBallController ballController = ball.GetComponent<GolfBallController>();
-    if (ballController != null)
-    {
-        // Stwórz dysk jako osobny obiekt (nie dziecko piłki)
-        if (discPrefab != null)
+        if (ballPrefab == null)
         {
-            GameObject disc = Instantiate(discPrefab, spawnPos, Quaternion.identity);
-            // Dodaj skrypt FollowBall, aby śledził pozycję piłki
-            FollowBall follower = disc.GetComponent<FollowBall>();
-            if (follower == null)
-                follower = disc.AddComponent<FollowBall>();
-            follower.ball = ball.transform;
-            follower.yOffset = 0.05f; // dysk lekko nad ziemią, jeśli potrzebujesz
-
-            // Przypisz dysk jako rangeIndicator, aby GolfBallController mógł nim sterować (pokazywać/ukrywać)
-            ballController.rangeIndicator = disc;
+            Debug.LogWarning("Brak przypisanego ballPrefab w LocalCameraSpawner!");
+            return;
         }
 
-        // Stwórz strzałkę
-        if (arrowPrefab != null)
+        Vector3 spawnPos = transform.position + new Vector3(0, 0.5f, 1f);
+        GameObject ball = Instantiate(ballPrefab, spawnPos, Quaternion.identity);
+
+        PlayerProximity proximity = ball.GetComponent<PlayerProximity>();
+        if (proximity != null)
+            proximity.SetPlayerTransform(transform);
+
+        GolfBallController ballController = ball.GetComponent<GolfBallController>();
+        if (ballController != null)
         {
-            GameObject arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
-            ballController.arrow = arrow.transform;
+            if (discPrefab != null)
+            {
+                GameObject disc = Instantiate(discPrefab, spawnPos, Quaternion.identity);
+                FollowBall follower = disc.GetComponent<FollowBall>();
+                if (follower == null)
+                    follower = disc.AddComponent<FollowBall>();
+                follower.ball = ball.transform;
+                follower.yOffset = 0.05f;
+                ballController.rangeIndicator = disc;
+            }
+
+            if (arrowPrefab != null)
+            {
+                GameObject arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
+                ballController.arrow = arrow.transform;
+            }
+
+            // Unikalny ID z PurrNet - nadawany przez serwer, taki sam na wszystkich klientach
+            if (TryGetComponent<NetworkIdentity>(out var identity) && identity.owner.HasValue)
+            {
+                ballController.ownerId = (ulong)identity.owner.Value.id;
+                Debug.Log($"ownerId ustawiony na: {ballController.ownerId}");
+            }
         }
 
-		if (TryGetComponent<NetworkIdentity>(out var identity))
-            ballController.ownerId = (ulong)identity.id.GetHashCode();
+        HoleTrigger hole = FindObjectOfType<HoleTrigger>();
+        if (hole != null)
+            hole.StartTimer(ballController.ownerId);
+        else
+            Debug.LogWarning("Nie znaleziono HoleTrigger w scenie!");
 
+        Debug.Log($"Ball spawned for {gameObject.name}, ownerId = {ballController.ownerId}");
     }
-	HoleTrigger hole = FindObjectOfType<HoleTrigger>();
-    if (hole != null)
-        hole.StartTimer(ballController.ownerId);
-    else
-        Debug.LogWarning("Nie znaleziono HoleTrigger w scenie!");
-
-    Debug.Log($"Ball spawned for {gameObject.name}");
-}
 }

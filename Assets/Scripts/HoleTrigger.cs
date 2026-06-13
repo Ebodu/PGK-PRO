@@ -2,6 +2,7 @@
 using PurrNet;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 
 public class HoleTrigger : NetworkBehaviour
@@ -21,7 +22,12 @@ public class HoleTrigger : NetworkBehaviour
     private float blockUntilTime = 0f;
 
     private Dictionary<ulong, PlayerTimerData> playerTimers = new Dictionary<ulong, PlayerTimerData>();
-    private int playerCount = 0; // tylko do pozycji i koloru
+    private int playerCount = 0;
+    private TextMeshPro winnerText;
+
+    // Serwer
+    private Dictionary<ulong, float> finishedTimes = new Dictionary<ulong, float>();
+    private float serverStartTime = -1f;
 
     private class PlayerTimerData
     {
@@ -29,7 +35,7 @@ public class HoleTrigger : NetworkBehaviour
         public bool running;
         public bool finished;
         public TextMeshPro text;
-        public int displayIndex; // który z kolei gracz (do pozycji/koloru)
+        public int displayIndex;
     }
 
     private void Start()
@@ -37,6 +43,23 @@ public class HoleTrigger : NetworkBehaviour
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null && holeSound != null)
             audioSource = gameObject.AddComponent<AudioSource>();
+
+        CreateWinnerDisplay();
+    }
+
+    private void CreateWinnerDisplay()
+    {
+        GameObject winnerObj = new GameObject("WinnerText");
+        winnerObj.transform.SetParent(transform);
+        winnerObj.transform.localPosition = timerOffset + new Vector3(0, 0.8f, 0);
+        winnerObj.transform.localRotation = Quaternion.identity;
+
+        winnerText = winnerObj.AddComponent<TextMeshPro>();
+        winnerText.alignment = TextAlignmentOptions.Center;
+        winnerText.fontSize = 4f;
+        winnerText.color = Color.yellow;
+        winnerText.text = "";
+        winnerObj.SetActive(false);
     }
 
     private void Update()
@@ -53,7 +76,7 @@ public class HoleTrigger : NetworkBehaviour
     {
         if (playerTimers.ContainsKey(ownerId))
         {
-            Debug.LogWarning($"Timer dla gracza {ownerId} już istnieje!");
+            Debug.LogWarning($"Timer dla gracza {ownerId} juz istnieje!");
             return;
         }
 
@@ -69,22 +92,76 @@ public class HoleTrigger : NetworkBehaviour
         };
 
         playerTimers[ownerId] = data;
-        Debug.Log($"⏱️ Timer startuje dla gracza {ownerId}");
+
+        NotifyServerPlayerJoined(ownerId);
+
+        Debug.Log($"Timer startuje dla gracza {ownerId}");
     }
 
-    private TextMeshPro CreateTimerDisplay(int index)
+    [ServerRpc(requireOwnership: false)]
+    private void NotifyServerPlayerJoined(ulong ownerId)
     {
-        GameObject timerObj = new GameObject($"HoleTimer_P{index + 1}");
-        timerObj.transform.SetParent(transform);
-        timerObj.transform.localPosition = timerOffset + new Vector3(index * timerSpacing, 0, 0);
-        timerObj.transform.localRotation = Quaternion.identity; // pionowo jak znak drogowy
+        if (!finishedTimes.ContainsKey(ownerId))
+            finishedTimes[ownerId] = -1f;
 
-        TextMeshPro tmp = timerObj.AddComponent<TextMeshPro>();
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.fontSize = 3f;
-        tmp.color = GetPlayerColor(index);
-        tmp.text = $"P{index + 1}: 00:00.00";
-        return tmp;
+        // Serwer startuje swoj timer przy pierwszym graczu
+        if (serverStartTime < 0f)
+            serverStartTime = Time.time;
+
+        Debug.Log($"[Serwer] Gracz {ownerId} dolaczyl. Graczy: {finishedTimes.Count}");
+    }
+
+    [ServerRpc(requireOwnership: false)]
+    private void NotifyServerPlayerFinished(ulong ownerId)
+    {
+        // Serwer sam oblicza czas — nie ufa klientom
+        float time = Time.time - serverStartTime;
+        finishedTimes[ownerId] = time;
+
+        int finished = finishedTimes.Values.Count(t => t >= 0);
+        int total = finishedTimes.Count;
+        Debug.Log($"[Serwer] Gracz {ownerId} skonczyl z czasem {time:F2}s. {finished}/{total}");
+
+        bool wszyscySkonczyli = finishedTimes.Values.All(t => t >= 0);
+        if (wszyscySkonczyli)
+        {
+            var winner = finishedTimes.OrderBy(kvp => kvp.Value).First();
+            BroadcastWinner(winner.Key, winner.Value);
+        }
+    }
+
+    [ObserversRpc]
+    private void BroadcastWinner(ulong winnerId, float winnerTime)
+    {
+        Debug.Log($"[Klient] Zwyciezca: {winnerId} z czasem {winnerTime:F2}s");
+
+        // Znajdz displayIndex zwyciezcy
+        int winnerIndex = -1;
+        foreach (var kvp in playerTimers)
+        {
+            if (kvp.Key == winnerId)
+            {
+                winnerIndex = kvp.Value.displayIndex;
+                // Podswietl timer zwyciezcy na zloto
+                if (kvp.Value.text != null)
+                    kvp.Value.text.color = Color.yellow;
+                break;
+            }
+        }
+
+        // Jesli nie znaleziono lokalnie (drugi klient nie zna tego gracza)
+        // uzyjemy samego czasu i numeru
+        int winnerNumber = winnerIndex >= 0 ? winnerIndex + 1 : (int)(winnerId + 1);
+        Color winnerColor = winnerIndex >= 0 ? GetPlayerColor(winnerIndex) : Color.yellow;
+
+        int minutes = Mathf.FloorToInt(winnerTime / 60f);
+        int seconds = Mathf.FloorToInt(winnerTime % 60f);
+        int millis  = Mathf.FloorToInt((winnerTime % 1f) * 100f);
+        string timeStr = $"{minutes:00}:{seconds:00}.{millis:00}";
+
+        winnerText.gameObject.SetActive(true);
+        winnerText.text = $"Wygrywa P{winnerNumber}!\n{timeStr}";
+        winnerText.color = winnerColor;
     }
 
     private void StopTimer(ulong ownerId)
@@ -98,7 +175,25 @@ public class HoleTrigger : NetworkBehaviour
         if (data.text != null)
             data.text.color = Color.green;
 
-        Debug.Log($"🏁 Gracz {ownerId} skończył! Czas: {data.text?.text}");
+        // Tylko informujemy serwer — on sam liczy czas
+        NotifyServerPlayerFinished(ownerId);
+
+        Debug.Log($"Gracz {ownerId} skonczyl!");
+    }
+
+    private TextMeshPro CreateTimerDisplay(int index)
+    {
+        GameObject timerObj = new GameObject($"HoleTimer_P{index + 1}");
+        timerObj.transform.SetParent(transform);
+        timerObj.transform.localPosition = timerOffset + new Vector3(index * timerSpacing, 0, 0);
+        timerObj.transform.localRotation = Quaternion.identity;
+
+        TextMeshPro tmp = timerObj.AddComponent<TextMeshPro>();
+        tmp.alignment = TextAlignmentOptions.Center;
+        tmp.fontSize = 3f;
+        tmp.color = GetPlayerColor(index);
+        tmp.text = $"P{index + 1}: 00:00.00";
+        return tmp;
     }
 
     private void UpdateTimerDisplay(PlayerTimerData data)
@@ -116,7 +211,7 @@ public class HoleTrigger : NetworkBehaviour
             Color.white,
             Color.yellow,
             Color.cyan,
-            new Color(1f, 0.5f, 0f) // pomarańczowy
+            new Color(1f, 0.5f, 0f)
         };
         return colors[index % colors.Length];
     }
@@ -132,11 +227,10 @@ public class HoleTrigger : NetworkBehaviour
 
         ulong ownerId = ball.ownerId;
 
-        // Sprawdź czy ten gracz już skończył
         if (playerTimers.TryGetValue(ownerId, out var data) && data.finished)
             return;
 
-        Debug.Log($"🏆 Piłka gracza {ownerId} wpadła do dołka!");
+        Debug.Log($"Pilka gracza {ownerId} wpadla do dolka!");
 
         isUsed = true;
         blockUntilTime = Time.time + 0.5f;
