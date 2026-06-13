@@ -112,7 +112,16 @@ public class LocalSpawner : MonoBehaviour
             GameObject arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
             ballController.arrow = arrow.transform;
         }
+
+		if (TryGetComponent<NetworkIdentity>(out var identity))
+            ballController.ownerId = (ulong)identity.id.GetHashCode();
+
     }
+	HoleTrigger hole = FindObjectOfType<HoleTrigger>();
+    if (hole != null)
+        hole.StartTimer(ballController.ownerId);
+    else
+        Debug.LogWarning("Nie znaleziono HoleTrigger w scenie!");
 
     Debug.Log($"Ball spawned for {gameObject.name}");
 }
